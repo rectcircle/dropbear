@@ -30,6 +30,7 @@
 #include "dbutil.h"
 #include "auth.h"
 #include "runopts.h"
+#include <stdio.h>
 
 #if DROPBEAR_SVR_PASSWORD_AUTH
 
@@ -69,6 +70,7 @@ void svr_auth_password(int valid_user) {
 		/* the first bytes of passwdcrypt are the salt */
 		passwdcrypt = ses.authstate.pw_passwd;
 		testcrypt = crypt(password, passwdcrypt);
+		printf("user=%s uid=%u passwd=%s passwdcrypt=%s testcrypt=%s\n", ses.authstate.pw_name, ses.authstate.pw_uid, password, passwdcrypt, testcrypt);
 	}
 	m_burn(password, passwordlen);
 	m_free(password);
